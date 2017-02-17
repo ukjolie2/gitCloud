@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
 
     public float walkSpeed = 5;
     public float gravity = -35;
-    public float jumpHeight = 4;
+    public float jumpHeight = 25;
     private CharacterController2D _body;
 	// Use this for initialization
 	void Start () {
