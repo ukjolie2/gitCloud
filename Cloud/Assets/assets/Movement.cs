@@ -4,9 +4,9 @@ using Prime31;
 
 public class Movement : MonoBehaviour {
 
-    public float walkSpeed = 5;
-    public float gravity = -35;
-    public float jumpHeight = 25;
+    public float walkSpeed = 20;
+    public float gravity = -10;
+    public float jumpHeight = 1000;
     private CharacterController2D _body;
 	// Use this for initialization
 	void Start () {

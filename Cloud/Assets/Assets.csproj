@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\CharacterController2D.cs" />
-    <Compile Include="assets\Move camera Upward.cs" />
     <Compile Include="assets\Movement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
