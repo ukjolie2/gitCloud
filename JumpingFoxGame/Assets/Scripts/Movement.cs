@@ -2,7 +2,8 @@
 using UnityEngine;
 using Prime31;
 
-public class Movement : MonoBehaviour {
+public class Movement : MonoBehaviour
+{
 
     public float walkSpeed = 20;
     public float gravity = -10;
@@ -25,68 +26,44 @@ public class Movement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Vector3 velocity = _body.velocity;
+
+        if (_body.isGrounded)
+        {
+            if (Input.GetKey(KeyCode.F))
+                _animator.setAnimation("Dancing");
+            else
+                _animator.setAnimation("Idle");
+        }
+        else if (_body.velocity.y > 1)
+            _animator.setAnimation("JumpingUp");
+        else if (_body.velocity.y < 1)
+            _animator.setAnimation("JumpingDown");
+
         if (Input.GetAxis("Horizontal") < 0)
         {
-            velocity.x = -walkSpeed;
-            if (_body.isGrounded != true)
-            {
-                if (velocity.y > 0)
-                {
-                    _animator.setAnimation("JumpingUp");
-                }
-
-                else
-                {
-                    _animator.setAnimation("JumpingDown");
-                }
-            }
-            else
-            {
-                _animator.setAnimation("idle");
-            }
             _animator.setFacing("Left");
+            _body.velocity.x = -walkSpeed;
         }
         else if (Input.GetAxis("Horizontal") > 0)
         {
-            velocity.x = walkSpeed;
-            if (_body.isGrounded != true)
-            {
-                if (velocity.y > 0)
-                {
-                    _animator.setAnimation("JumpingUp");
-                }
-
-                else
-                {
-                    _animator.setAnimation("JumpingDown");
-                }
-            }
-            else
-            {
-                _animator.setAnimation("idle");
-            }
             _animator.setFacing("Right");
+            _body.velocity.x = walkSpeed;
         }
         else
-        {
-            velocity.x = 0;
-        }
+            _body.velocity.x = 0;
+
         if (Input.GetAxis("Jump") > 0 && _body.isGrounded)
         {
-            velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+            _body.velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
         }
-        velocity.x *= 0.85f;
-        velocity.y += gravity * Time.deltaTime;
-        _body.move(velocity * Time.deltaTime);
-	}
+        _body.velocity.x *= 0.85f;
+        _body.velocity.y += gravity * Time.deltaTime;
+        _body.move(_body.velocity * Time.deltaTime);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Death")
-        {
-            print("got here!");
             PlayerDeath();
-        }
     }
 
     private void PlayerDeath()
