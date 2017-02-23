@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Levels/Title.unity
+- path: Assets/Levels/Fox Level.unity
   isLoaded: 1
   isActive: 1

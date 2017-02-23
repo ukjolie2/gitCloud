@@ -9,7 +9,9 @@ public class Movement : MonoBehaviour
     public float gravity = -10;
     public float jumpHeight = 1000;
     public GameObject gameOver;
+    public GameObject gameWin;
     public GameObject gameCamera;
+    public bool isStopped = false;
 
     private CharacterController2D _body;
     private AnimationController2D _animator;
@@ -63,12 +65,25 @@ public class Movement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Death")
+        {
             PlayerDeath();
+        }
+
+        if (collision.tag == "Win")
+            PlayerWin();
+    }
+
+    private void PlayerWin()
+    {
+        gameCamera.GetComponent<CameraFollow2D>().stopCameraFollow();
+        gameWin.SetActive(true);
+        isStopped = true;
     }
 
     private void PlayerDeath()
     {
         gameCamera.GetComponent<CameraFollow2D>().stopCameraFollow();
+        isStopped = true;
         gameOver.SetActive(true);
     }
 }
